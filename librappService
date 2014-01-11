@@ -15,3 +15,5 @@ git commit -m "First commit"
 
 Push to github: 
 git push -u origin master
+
+milos-macbook:LibrApp Milo$  bower install toastr --save

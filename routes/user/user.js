@@ -13,7 +13,6 @@ exports.index = function(req, res) {
 }
 
 exports.show = function(req, res) {
-  
   var id = req.params.id; // The id of the User the user wants to look up. 
   User.findById(id, function(err, doc) {
     if(!err && doc) {
@@ -26,19 +25,19 @@ exports.show = function(req, res) {
   });
 }
 
-exports.create = function(req, res) {
-
-  var User_name = req.body.User_name; // Name of User. 
-  var password = req.body.User_password;  // Description of the User
-
-  //User.findOne({ name: User_name }, function(err, doc) {  // This line is case sensitive.
-  User.findOne({ name: { $regex: new RegExp(User_name, "i") } }, function(err, doc) {  // Using RegEx - search is case insensitive
+exports.create = function(request, response) {
+    console.log(request.body.user.name);
+    console.log(request.body.user.email);
+    var name = request.body.name; // Name of User. 
+    var password = request.body.password;  // Description of the User
+    var email = requestx.body.email;
+    //User.findOne({ name: User_name }, function(err, doc) {  // This line is case sensitive.
+    User.findOne({ name: { $regex: new RegExp(name, "i") } }, function(err, doc) {  // Using RegEx - search is case insensitive
     if(!err && !doc) {
-      
       var newUser = new User(); 
-
-      newUser.name = User_name; 
+      newUser.name = name; 
       newUser.password = password; 
+      newUser.email = email;
       
       newUser.save(function(err) {
 

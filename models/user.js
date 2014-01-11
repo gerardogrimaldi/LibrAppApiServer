@@ -8,7 +8,7 @@ var userSchema = new Schema({
   , date_created  : { type: Date,   required: true, default: Date.now }
 });
 
-var user = mongoose.model('user', userSchema);
+var user = mongoose.model('users', userSchema);
 
 module.exports = {
   User: user

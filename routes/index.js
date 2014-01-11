@@ -1,3 +1,3 @@
 exports.index = function(req, res){
-  res.send({ title: 'Express' });
+  res.send({ Trasero: 'TE AMO' });
 };

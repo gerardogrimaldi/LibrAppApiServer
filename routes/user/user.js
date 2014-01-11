@@ -25,12 +25,10 @@ exports.show = function(req, res) {
   });
 }
 
-exports.create = function(request, response) {
-    console.log(request.body.user.name);
-    console.log(request.body.user.email);
-    var name = request.body.name; // Name of User. 
-    var password = request.body.password;  // Description of the User
-    var email = requestx.body.email;
+exports.create = function(req, res) {
+    var name = req.name; 
+    var password = req.password;  
+    var email = req.email;
     //User.findOne({ name: User_name }, function(err, doc) {  // This line is case sensitive.
     User.findOne({ name: { $regex: new RegExp(name, "i") } }, function(err, doc) {  // Using RegEx - search is case insensitive
     if(!err && !doc) {

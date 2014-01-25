@@ -1,9 +1,9 @@
-var User = require('../../models/user').User; 
+var user = require('../../models/user').user; 
 /*
  * Users Routes
  */
 exports.index = function(req, res) {
-  User.find({}, function(err, docs) {
+  user.find({}, function(err, docs) {
     if(!err) {
       res.json(200, { Users: docs });  
     } else {
@@ -14,7 +14,7 @@ exports.index = function(req, res) {
 
 exports.show = function(req, res) {
   var id = req.params.id; // The id of the User the user wants to look up. 
-  User.findById(id, function(err, doc) {
+  user.findById(id, function(err, doc) {
     if(!err && doc) {
       res.json(200, doc);
     } else if(err) {
@@ -26,13 +26,13 @@ exports.show = function(req, res) {
 }
 
 exports.create = function(req, res) {
-    var name = req.name; 
-    var password = req.password;  
-    var email = req.email;
-    //User.findOne({ name: User_name }, function(err, doc) {  // This line is case sensitive.
-    User.findOne({ name: { $regex: new RegExp(name, "i") } }, function(err, doc) {  // Using RegEx - search is case insensitive
+    var name = req.body.name; 
+    var password = req.body.password;  
+    var email = req.body.email;
+    //user.findOne({ name: name }, function(err, doc) {  // This line is case sensitive.
+    user.findOne({ name: { $regex: new RegExp(name, "i") } }, function(err, doc) {  // Using RegEx - search is case insensitive
     if(!err && !doc) {
-      var newUser = new User(); 
+      var newUser = new user(); 
       newUser.name = name; 
       newUser.password = password; 
       newUser.email = email;
@@ -48,10 +48,8 @@ exports.create = function(req, res) {
       });
 
     } else if(!err) {
-      
       // User is trying to create a User with a name that already exists. 
-      res.json(403, {message: "User with that name already exists, please update instead of create or create a new User with a different name."}); 
-
+      res.json(403, { message: "User with that name already exists, please update instead of create or create a new User with a different name."}); 
     } else {
       res.json(500, { message: err});
     } 
@@ -61,17 +59,19 @@ exports.create = function(req, res) {
 
 exports.update = function(req, res) {
   
-  var id = req.body.id; 
-  var User_name = req.body.User_name;
-  var User_description = req.body.User_description; 
+    var id = req.body.id; 
+    var name = req.body.name; 
+    var password = req.body.password;  
+    var email = req.body.email;
 
-  User.findById(id, function(err, doc) {
+    user.findById(id, function(err, doc) {
       if(!err && doc) {
-        doc.name = User_name; 
-        doc.description = User_description; 
+        doc.name = name; 
+        doc.email = email; 
+        doc.password = password; 
         doc.save(function(err) {
           if(!err) {
-            res.json(200, {message: "User updated: " + User_name});    
+            res.json(200, {message: "User updated: " + name});    
           } else {
             res.json(500, {message: "Could not update User. " + err});
           }  
@@ -87,7 +87,7 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
 
   var id = req.body.id; 
-  User.findById(id, function(err, doc) {
+  user.findById(id, function(err, doc) {
     if(!err && doc) {
       doc.remove();
       res.json(200, { message: "User removed."});
@@ -98,11 +98,3 @@ exports.delete = function(req, res) {
     }
   });
 }
-
-
-/*
-mongodb://librapp:%#L1br4pp#%@ds047198.mongolab.com:47198/librapp
-
-librapp
-%#L1br4pp#%
-*/

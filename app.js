@@ -32,14 +32,13 @@ app.all('/*', function (req, res, next) {
   next();
 });
 
-app.get ('/api', routes.index);
-app.get ('/api/users', user.index);
-app.get ('/api/user/:id', user.show);
-app.post('/api/user/',user.create);
-app.put ('/api/user/', user.update);
-app.del ('/api/user/', user.delete);
+app.get ('/api',            routes.index);
+app.get ('/api/users',      user.index);
+app.get ('/api/user/:id',   user.show);
+app.post('/api/user/',      user.create);
+app.put ('/api/user/',      user.update);
+app.del ('/api/user/',      user.delete);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port %s in %s mode.",  app.get('port'), app.settings.env);
 });
-//http://www.codemag.com/Article/1210041

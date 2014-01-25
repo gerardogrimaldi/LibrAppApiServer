@@ -1,3 +1,3 @@
 exports.index = function(req, res){
-  res.send({ Trasero: 'TE AMO' });
+  res.send({ is: 'Api for server' });
 };

@@ -5,7 +5,7 @@ var user = require('../../models/user').user;
 exports.index = function(req, res) {
   user.find({}, function(err, docs) {
     if(!err) {
-      res.json(200, { Users: docs });  
+      res.json(200, docs );  
     } else {
       res.json(500, { message: err });
     }
@@ -57,12 +57,7 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-<<<<<<< HEAD
-  
-    var id = req.body.id; 
-=======
     var id = req.body._id; 
->>>>>>> api server ready for first launch
     var name = req.body.name; 
     var password = req.body.password;  
     var email = req.body.email;
@@ -88,15 +83,9 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-<<<<<<< HEAD
-
-  var id = req.body.id; 
-  user.findById(id, function(err, doc) {
-=======
     //var id = req.body._id; 
     var id = req.params.id;
     user.findById(id, function(err, doc) {
->>>>>>> api server ready for first launch
     if(!err && doc) {
       doc.remove();
       res.json(200, { message: "User removed."});
@@ -106,8 +95,4 @@ exports.delete = function(req, res) {
       res.json(403, {message: "Could not delete User. " + err });
     }
   });
-<<<<<<< HEAD
-}
-=======
 };
->>>>>>> api server ready for first launch

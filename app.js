@@ -39,6 +39,7 @@ app.get ('/api/user/:id',   user.show);
 app.post('/api/user/',      user.create);
 app.put ('/api/user/',      user.update);
 app.del ('/api/user/:id',   user.delete);
+
 app.post('/api/user/login/',user.login);
 
 

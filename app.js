@@ -15,7 +15,7 @@ app.configure(function(){
   //app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  //app.use(express.bodyParser());
+  app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
   //app.use(express.static(__dirname + '/public'));
@@ -34,10 +34,10 @@ app.all('/*', function (req, res, next) {
 });
 
 app.get ('/api',            passport.authenticate('local', { failureRedirect: '/api/user/login/' }), routes.index);
-app.get ('/api/users',      user.index);
+app.get ('/api/user',       user.index);
 app.get ('/api/user/:id',   user.show);
-app.post('/api/user/',      user.create);
-app.put ('/api/user/',      user.update);
+app.post('/api/user',       user.create);
+app.put ('/api/user',       user.update);
 app.del ('/api/user/:id',   user.delete);
 
 app.post('/api/user/login/',user.login);

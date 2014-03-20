@@ -11,14 +11,14 @@ var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+  //app.set('views', __dirname + '/views');
+  //app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  //app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+  //app.use(express.static(__dirname + '/public'));
 });
 
 app.configure('development', function(){
@@ -33,12 +33,14 @@ app.all('/*', function (req, res, next) {
   next();
 });
 
-app.get ('/api',            passport.authenticate('local', { failureRedirect: '/login' }), routes.index);
+app.get ('/api',            passport.authenticate('local', { failureRedirect: '/api/user/login/' }), routes.index);
 app.get ('/api/users',      user.index);
 app.get ('/api/user/:id',   user.show);
 app.post('/api/user/',      user.create);
 app.put ('/api/user/',      user.update);
 app.del ('/api/user/:id',   user.delete);
+app.post('/api/user/login/',user.login);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port %s in %s mode.",  app.get('port'), app.settings.env);

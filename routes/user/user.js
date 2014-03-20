@@ -12,6 +12,21 @@ exports.index = function(req, res) {
   });
 };
 
+exports.login = funtion(req, res){
+  user.findOne({ name: { $regex: new RegExp(name, "i") } }, function(err, doc) {  // Using RegEx - search is case insensitive
+  if(!err && !doc) {
+    if (doc.name == req.body.name && doc.password == req.body.password){
+      res.json(201, {message: "User " + doc.name + " Autenticated "  });    
+    } else {
+      res.json(401, {message: "User or password invalid for the user " + req.body.name });    
+    } else if(!err) {
+        res.json(201, {message: "Error: " + err });    
+    } else {
+      res.json(500, {message: "Could not create User. Error: " + err});
+    }
+  });
+}
+
 exports.show = function(req, res) {
   var id = req.params.id; // The id of the User the user wants to look up. 
   user.findById(id, function(err, doc) {

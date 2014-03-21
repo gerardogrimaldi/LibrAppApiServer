@@ -73,11 +73,11 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var id = req.body._id; 
+    var id = req.params.id;
+    //var id = req.body._id; 
     var name = req.body.name; 
     var password = req.body.password;  
     var email = req.body.email;
-
     user.findById(id, function(err, doc) {
       if(!err && doc) {
         doc.name = name; 
